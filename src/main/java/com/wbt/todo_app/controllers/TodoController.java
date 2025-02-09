@@ -1,6 +1,7 @@
 package com.wbt.todo_app.controllers;
 
 import com.wbt.todo_app.models.Todo;
+import com.wbt.todo_app.services.TodoService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,12 @@ import java.util.UUID;
 @RestController
 @RequestMapping(path = {"/api/v1/todos"})
 public class TodoController {
+
+    private final TodoService service;
+
+    public TodoController(TodoService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public String getTodos() {
