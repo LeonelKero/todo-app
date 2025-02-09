@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: todo-app
+
+springdoc:
+  swagger-ui:
+    path: '/'
