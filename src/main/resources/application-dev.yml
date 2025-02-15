@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    username: 'sa'
+    password: ''
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:tododb
+  h2:
+    console:
+      enabled: true
+      path: '/db-dashboard'
+  application:
+    name: 'todo-app'
+
+springdoc:
+  swagger-ui:
+    path: '/'
