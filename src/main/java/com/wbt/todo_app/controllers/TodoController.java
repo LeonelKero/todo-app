@@ -38,8 +38,8 @@ public class TodoController {
     }
 
     @DeleteMapping(path = {"/{id}"})
-    public void remove(final @PathVariable UUID id) {
-        this.service.deleteById(id);
+    public Integer remove(final @PathVariable UUID id) {
+        return this.service.deleteById(id);
     }
 
     @PutMapping(path = {"/{id}"})

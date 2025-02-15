@@ -1,5 +1,6 @@
 package com.wbt.todo_app.services.impl;
 
+import com.wbt.todo_app.exception.TodoNotFoundException;
 import com.wbt.todo_app.models.Todo;
 import com.wbt.todo_app.repositories.TodoRepository;
 import com.wbt.todo_app.services.TodoService;
@@ -41,16 +42,16 @@ public class TodoServiceImpl implements TodoService {
     public Integer deleteById(UUID todoId) {
         return this.repository.findById(todoId)
                 .map(todo -> {
-                    this.repository.delete(todo);
+                    this.repository.deleteById(todo.getId());
                     return 1;
                 })
-                .orElse(0);
+                .orElseThrow(() -> new TodoNotFoundException("Todo with id: " + todoId + " not found"));
     }
 
     @Override
     public Todo update(UUID todoId, Todo request) {
         return this.repository.findById(todoId)
                 .map(todo -> this.repository.save(request))
-                .orElse(null);
+                .orElseThrow(() -> new TodoNotFoundException("Todo with id: " + todoId + " not found"));
     }
 }
