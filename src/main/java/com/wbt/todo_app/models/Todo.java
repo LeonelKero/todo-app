@@ -3,6 +3,7 @@ package com.wbt.todo_app.models;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.*;
 
 import java.util.UUID;
@@ -13,6 +14,7 @@ import java.util.UUID;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "todos")
 public class Todo {
     @Id
     @GeneratedValue
