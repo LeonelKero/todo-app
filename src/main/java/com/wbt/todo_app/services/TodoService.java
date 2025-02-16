@@ -1,20 +1,25 @@
 package com.wbt.todo_app.services;
 
-import com.wbt.todo_app.models.Todo;
+import com.wbt.todo_app.dto.TodoRequest;
+import com.wbt.todo_app.dto.TodoResponse;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface TodoService {
-    Todo create(final Todo todo);
+    void createTodo(final TodoRequest todo);
 
-    List<Todo> getAllTodos();
+    TodoResponse create(final TodoRequest todo);
 
-    Todo fetchById(final UUID todoId);
+    List<TodoResponse> getAllTodos();
 
-    Todo fetchByTitle(final String todoTitle);
+    TodoResponse fetchById(final UUID todoId);
+
+    TodoResponse fetchByTitle(final String todoTitle);
 
     Integer deleteById(final UUID todoId);
 
-    Todo update(final UUID todoId, final Todo todo);
+    TodoResponse update(final UUID todoId, final TodoRequest todo);
+
+    TodoResponse patch(final UUID todoId, final TodoRequest todo);
 }

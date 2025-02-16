@@ -11,6 +11,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
+@Builder
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,10 +22,11 @@ public class Todo {
     private UUID id;
     private String title;
     private String description;
-    private Boolean isDone = false;
+    private Boolean isDone;
 
     public Todo(String title, String description) {
         this.title = title;
         this.description = description;
+        this.isDone = false;
     }
 }
