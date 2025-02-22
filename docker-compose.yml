@@ -1,0 +1,10 @@
+services:
+  postgresql:
+    image: postgres:16
+    container_name: wbt_postgres_server
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
