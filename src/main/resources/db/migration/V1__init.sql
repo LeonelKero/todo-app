@@ -1,4 +1,4 @@
-create database if not exists todo_db;
+--create database todo_db;
 
 CREATE TABLE todos
 (
