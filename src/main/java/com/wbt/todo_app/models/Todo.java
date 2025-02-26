@@ -22,7 +22,7 @@ public class Todo {
     private UUID id;
     private String title;
     private String description;
-    private Boolean isDone;
+    private Boolean isDone = false;
 
     public Todo(String title, String description) {
         this.title = title;
