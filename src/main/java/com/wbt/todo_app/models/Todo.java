@@ -12,7 +12,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
-@ToString
+//@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "todos")
@@ -28,5 +28,15 @@ public class Todo {
         this.title = title;
         this.description = description;
         this.isDone = false;
+    }
+
+    @Override
+    public String toString() {
+        return "Todo{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", isDone=" + isDone +
+                '}';
     }
 }
