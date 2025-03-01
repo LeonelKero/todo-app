@@ -8,8 +8,8 @@ public class TodoMapper {
     public static TodoResponse toResponse(final Todo todo) {
         return new TodoResponse(
                 todo.getId(),
-                todo.getTitle().trim().toLowerCase(),
-                todo.getDescription().trim().toLowerCase(),
+                todo.getTitle().trim(),
+                todo.getDescription().trim(),
                 todo.getIsDone()
         );
     }
