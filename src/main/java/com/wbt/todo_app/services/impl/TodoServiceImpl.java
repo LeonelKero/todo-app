@@ -83,7 +83,10 @@ public class TodoServiceImpl implements TodoService {
                 .map(todo -> {
                     final var updateTodo = TodoMapper.toTodo(request);
                     updateTodo.setId(todoId);
-                    return TodoMapper.toResponse(this.repository.save(updateTodo));
+
+                    final var saved = this.repository.save(updateTodo);
+
+                    return TodoMapper.toResponse(saved);
                 })
                 .orElseThrow(() -> new TodoNotFoundException("Todo with id: " + todoId + " not found"));
     }
