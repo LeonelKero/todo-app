@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -77,7 +78,40 @@ class TodoServiceImplTest {
     }
 
     @Test
-    void getAllTodos() {
+    void getAllTodos_ReturnAListOfTodoResponse() {
+        // Given
+        final var todo1 = new Todo(
+                UUID.randomUUID(),
+                "Use Mockito for test",
+                "Mock objects of test service",
+                false
+        );
+        final var todo2 = new Todo(
+                UUID.randomUUID(),
+                "Java 17",
+                "Modern java features",
+                true
+        );
+        final var todos = List.of(todo1, todo2);
+        Mockito.when(repository.findAll()).thenReturn(todos);
+
+        // When
+        final var allTodos = this.underTest.getAllTodos();
+
+        // Then
+        assertThat(allTodos.size()).isEqualTo(2);
+    }
+
+    @Test
+    void getAllTodos_WhenThereIsNotTodos_ReturnAnEmptyList() {
+        // Given
+        Mockito.when(repository.findAll()).thenReturn(List.of());
+
+        // When
+        final var todoList = this.underTest.getAllTodos();
+
+        // Then
+        assertThat(todoList).isEmpty();
     }
 
     @Test
