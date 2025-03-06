@@ -5,6 +5,7 @@ import com.wbt.todo_app.dto.TodoResponse;
 import com.wbt.todo_app.exception.TodoAlreadyExistsException;
 import com.wbt.todo_app.exception.TodoNotFoundException;
 import com.wbt.todo_app.mapper.TodoMapper;
+import com.wbt.todo_app.models.Todo;
 import com.wbt.todo_app.repositories.TodoRepository;
 import com.wbt.todo_app.services.TodoService;
 import org.springframework.stereotype.Service;
@@ -35,8 +36,10 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public TodoResponse create(final TodoRequest todo) {
-        if (this.repository.findByTitle(todo.title().trim().toLowerCase()).isPresent())
+        if (this.repository.findByTitle(todo.title().trim().toLowerCase()).isPresent()) {
+            //this.repository.save(new Todo());
             throw new TodoAlreadyExistsException("Todo with title: '" + todo.title() + "' already exist");
+        }
 
         final var newTodo = TodoMapper.toTodo(todo);
 
@@ -83,6 +86,8 @@ public class TodoServiceImpl implements TodoService {
                 .map(todo -> {
                     final var updateTodo = TodoMapper.toTodo(request);
                     updateTodo.setId(todoId);
+
+                    //updateTodo.setTitle("fake title");
 
                     final var saved = this.repository.save(updateTodo);
 
