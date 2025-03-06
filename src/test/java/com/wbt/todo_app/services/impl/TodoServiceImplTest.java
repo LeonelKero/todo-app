@@ -7,7 +7,6 @@ import com.wbt.todo_app.exception.TodoNotFoundException;
 import com.wbt.todo_app.mapper.TodoMapper;
 import com.wbt.todo_app.models.Todo;
 import com.wbt.todo_app.repositories.TodoRepository;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
@@ -302,5 +301,77 @@ class TodoServiceImplTest {
                 .isInstanceOf(TodoNotFoundException.class)
                 .hasMessage("Todo with id: %s not found", fakeId);
         Mockito.verify(repository, never()).save(any());
+    }
+
+    @Test
+    void givenAnExistingTodo_WhenTryingToPatchTheTitle_ThenCaptureTheRightValue() {
+        // Then
+        final var id = UUID.randomUUID();
+        final var todo = new Todo(id, "Mockito", "Mocking services", false);
+        final var request = new TodoRequest(" JUnit 5 ", null, null);
+        Mockito.when(repository.findById(any(UUID.class)))
+                .thenReturn(Optional.of(todo));
+        Mockito.when(repository.save(any(Todo.class)))
+                .thenReturn(todo);
+
+        // When
+        this.underTest.patch(id, request);
+
+        // Then
+        Mockito.verify(repository, times(1)).save(captor.capture());
+        final var capturedTodo = captor.getValue();
+
+        assertThat(capturedTodo.getId()).isEqualTo(id);
+        assertThat(capturedTodo.getTitle()).isEqualTo(request.title().trim());
+        assertThat(capturedTodo.getDescription()).isEqualTo(todo.getDescription());
+        assertThat(capturedTodo.getIsDone()).isEqualTo(todo.getIsDone());
+    }
+
+    @Test
+    void givenAnExistingTodo_WhenTryingToPatchTheDescription_ThenCaptureTheRightValue() {
+        // Then
+        final var id = UUID.randomUUID();
+        final var todo = new Todo(id, "Mockito", " Mocking services ", false);
+        final var request = new TodoRequest(null, " Unit testing code ", null);
+        Mockito.when(repository.findById(any(UUID.class)))
+                .thenReturn(Optional.of(todo));
+        Mockito.when(repository.save(any(Todo.class)))
+                .thenReturn(todo);
+
+        // When
+        this.underTest.patch(id, request);
+
+        // Then
+        Mockito.verify(repository, times(1)).save(captor.capture());
+        final var capturedTodo = captor.getValue();
+
+        assertThat(capturedTodo.getId()).isEqualTo(id);
+        assertThat(capturedTodo.getTitle()).isEqualTo(todo.getTitle());
+        assertThat(capturedTodo.getDescription()).isEqualTo(request.description().trim());
+        assertThat(capturedTodo.getIsDone()).isEqualTo(todo.getIsDone());
+    }
+
+    @Test
+    void givenAnExistingTodo_WhenTryingToPatchTheIsDone_ThenCaptureTheRightValue() {
+        // Then
+        final var id = UUID.randomUUID();
+        final var todo = new Todo(id, "Mockito", " Mocking services ", false);
+        final var request = new TodoRequest(null, null, true);
+        Mockito.when(repository.findById(any(UUID.class)))
+                .thenReturn(Optional.of(todo));
+        Mockito.when(repository.save(any(Todo.class)))
+                .thenReturn(todo);
+
+        // When
+        this.underTest.patch(id, request);
+
+        // Then
+        Mockito.verify(repository, times(1)).save(captor.capture());
+        final var capturedTodo = captor.getValue();
+
+        assertThat(capturedTodo.getId()).isEqualTo(id);
+        assertThat(capturedTodo.getTitle()).isEqualTo(todo.getTitle());
+        assertThat(capturedTodo.getDescription()).isEqualTo(todo.getDescription());
+        assertThat(capturedTodo.getIsDone()).isEqualTo(request.done());
     }
 }
