@@ -3,6 +3,7 @@ package com.wbt.todo_app.controllers;
 import com.wbt.todo_app.dto.TodoRequest;
 import com.wbt.todo_app.dto.TodoResponse;
 import com.wbt.todo_app.services.TodoService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class TodoController {
     }
 
     @PostMapping
-    public ResponseEntity<TodoResponse> add(final @RequestBody TodoRequest todoRequest) {
+    public ResponseEntity<TodoResponse> add(final @Valid @RequestBody TodoRequest todoRequest) {
         return new ResponseEntity<>(this.service.create(todoRequest), HttpStatus.CREATED);
     }
 
