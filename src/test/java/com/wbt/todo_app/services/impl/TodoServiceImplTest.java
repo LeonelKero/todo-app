@@ -290,7 +290,17 @@ class TodoServiceImplTest {
     }
 
     @Test
-    @Disabled
-    void patch() {
+    void givenNotExistingTodo_WhenTryingToPatchAnyField_ThrownTodoNotFoundException() {
+        // Given
+        final var fakeId = UUID.randomUUID();
+        final var request = new TodoRequest("Java 23", "Modern enterprise application", false);
+        Mockito.when(repository.findById(any(UUID.class)))
+                .thenReturn(Optional.empty());
+
+        // Then // When
+        assertThatThrownBy(() -> this.underTest.patch(fakeId, request))
+                .isInstanceOf(TodoNotFoundException.class)
+                .hasMessage("Todo with id: %s not found", fakeId);
+        Mockito.verify(repository, never()).save(any());
     }
 }
