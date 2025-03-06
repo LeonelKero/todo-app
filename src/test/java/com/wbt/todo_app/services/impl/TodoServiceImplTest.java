@@ -68,8 +68,9 @@ class TodoServiceImplTest {
                 "Mock objects of test service",
                 false
         );
+        Todo todo = TodoMapper.toTodo(request);
         Mockito.when(repository.findByTitle(any(String.class)))
-                .thenReturn(Optional.of(TodoMapper.toTodo(request)));
+                .thenReturn(Optional.of(todo));
 
         // When // Then
         // Then we check that an exception will be thrown and 'save' method of the repository will never be called
