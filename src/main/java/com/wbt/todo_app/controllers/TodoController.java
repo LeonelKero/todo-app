@@ -37,7 +37,7 @@ public class TodoController {
     }
 
     @GetMapping(path = {"/get/{title}"})
-    public ResponseEntity<TodoResponse> getById(final @PathVariable String title) {
+    public ResponseEntity<TodoResponse> getByTitle(final @PathVariable String title) {
         return new ResponseEntity<>(this.service.fetchByTitle(title), HttpStatus.OK);
     }
 
