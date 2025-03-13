@@ -50,9 +50,7 @@ class TodoControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.size()", Matchers.is(2)));
     }
 
-
     @Test
-    @Disabled
     void givenValidTodoRequestToBeAdded_ThenReturnResponseEntityOfCreatedTodoWithStatus_CREATED() throws Exception {
         // Given
         final var request = new TodoRequest("JUnit 5", "Unit testing with JUnit", false);
