@@ -103,6 +103,7 @@ public class TodoServiceImpl implements TodoService {
                     if (todo.done() != null) td.setIsDone(todo.done());
                     if (todo.title() != null) td.setTitle(todo.title().trim());
                     if (todo.description() != null) td.setDescription(todo.description().trim());
+                    if (todo.done() != null) td.setIsDone(todo.done());
                     return TodoMapper.toResponse(this.repository.save(td));
                 }).orElseThrow(() -> new TodoNotFoundException("Todo with id: " + todoId + " not found"));
     }
