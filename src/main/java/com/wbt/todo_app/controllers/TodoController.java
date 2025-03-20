@@ -13,6 +13,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(path = {"/api/v1/todos"})
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class TodoController {
 
     private final TodoService service;
