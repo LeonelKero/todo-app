@@ -15,6 +15,6 @@ public class TodoMapper {
     }
 
     public static Todo toTodo(final TodoRequest request) {
-        return new Todo(request.title(), request.description());
+        return new Todo(request.title(), request.description(), request.done());
     }
 }
