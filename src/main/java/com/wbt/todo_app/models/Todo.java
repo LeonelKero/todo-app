@@ -29,6 +29,12 @@ public class Todo {
         this.isDone = false;
     }
 
+    public Todo(String title, String description, Boolean isDone) {
+        this.title = title;
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     @Override
     public String toString() {
         return "Todo{" +
