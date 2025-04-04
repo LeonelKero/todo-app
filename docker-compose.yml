@@ -1,10 +1,35 @@
 services:
-  postgresql:
+  postgresql-todo:
     image: postgres:16
-    container_name: wbt_postgres_server
+    container_name: todo_db_server
     restart: unless-stopped
+    volumes:
+      - todo-vol:/data
     ports:
       - "5432:5432"
     environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
+    networks:
+      - todo-net
+
+  keycloak-todo:
+    image: quay.io/keycloak/keycloak:26.1.4
+    container_name: todo_auth_server
+    restart: unless-stopped
+    ports:
+      - "9090:8080"
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin@secure-23
+    command:
+      - "start-dev"
+    networks:
+      - todo-net
+
+networks:
+  todo-net:
+    driver: bridge
+
+volumes:
+  todo-vol:
