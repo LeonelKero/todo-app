@@ -10,6 +10,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
+      - POSTGRES_DB=todo_db
     networks:
       - todo-net
 

@@ -1,7 +1,24 @@
+server:
+  port: 8081
+
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9090/realms/todoapp-realm
+          jwk-set-uri: http://localhost:9090/realms/todoapp-realm/protocol/openid-connect/certs
+
+# Jwt config
+  jwt:
+    auth:
+      converter:
+        resource-id: todoapp-bknd-client
+        principal-attribute: principal_username
+
   profiles:
     active:
-      - 'dev'
+      - 'prod'
   application:
     name: 'todo-app'
 
